@@ -1,0 +1,301 @@
+{
+	"info": {
+		"_postman_id": "ec54cf80-3514-4189-907e-a2a887e3e26a",
+		"name": "Twitter",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25502675"
+	},
+	"item": [
+		{
+			"name": "AddUserRequest",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\":0,\r\n    \"userName\":\"Yadnesh Wani\",\r\n    \"userEmail\":\"yadneshwani0987@gmail.com\",\r\n    \"userPassword\":\"Yadnesh@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/postbook/webapi/twitter/users/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"postbook",
+						"webapi",
+						"twitter",
+						"users",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserLoginRequest",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userEmail\":\"yadneshwani0987@gmail.com\",\r\n    \"userPassword\":\"Yadnesh@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/postbook/webapi/twitter/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"postbook",
+						"webapi",
+						"twitter",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserRequest",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userEmail\":\"yadneshwani0987@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/postbook/webapi/twitter/users/getUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"postbook",
+						"webapi",
+						"twitter",
+						"users",
+						"getUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserUpdateRequest",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\":\"Yadnesh Wani Updated\",\r\n    \"userEmail\": \"yadneshwani0987@gmail.com\",\r\n    \"userPassword\": \"Yadnesh@0602\",\r\n    \"userBio\":\"Hi I am Yadnesh Wani \",\r\n    \"userAvatar\":\"https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/postbook/webapi/twitter/users/updateUser/yadneshwani0987@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"postbook",
+						"webapi",
+						"twitter",
+						"users",
+						"updateUser",
+						"yadneshwani0987@gmail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddTweetRequest",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tweetId\":1,\r\n    \"tweetBody\":\"Hi this is my first tweet !\",\r\n    \"tweetLikes\":50,\r\n    \"user\":{\r\n        \"userId\":1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/postbook/webapi/twitter/tweets/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"postbook",
+						"webapi",
+						"twitter",
+						"tweets",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ViewMyTweetRequest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/postbook/webapi/twitter/tweets/myTweet/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"postbook",
+						"webapi",
+						"twitter",
+						"tweets",
+						"myTweet",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "ViewMyTweetRequest",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/postbook/webapi/twitter/tweets/myTweet/{userId}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"postbook",
+								"webapi",
+								"twitter",
+								"tweets",
+								"myTweet",
+								"{userId}"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "DeleteTweetRequest",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/postbook/webapi/twitter/tweets/deleteTweet/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"postbook",
+						"webapi",
+						"twitter",
+						"tweets",
+						"deleteTweet",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "DeleteTweetRequest",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/postbook/webapi/twitter/tweets/deleteTweet/{tweetId}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"postbook",
+								"webapi",
+								"twitter",
+								"tweets",
+								"deleteTweet",
+								"{tweetId}"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "ViewAllTweetRequest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/postbook/webapi/twitter/tweets/getAllTweet",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"postbook",
+						"webapi",
+						"twitter",
+						"tweets",
+						"getAllTweet"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
