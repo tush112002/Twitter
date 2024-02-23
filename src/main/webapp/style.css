@@ -24,10 +24,11 @@ html {
 }
 
 .all-posts {
+	/* Create a CSS grid */
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-gap: 10px;
-	max-width: 400px;
+	max-width: 1600px;
 }
 
 .main-post {
@@ -36,63 +37,9 @@ html {
 	margin: auto;
 	min-width: 200px;
 	width: 100%;
-	max-width: 200px;
+	max-width: 600px;
 	box-shadow: var(--custom-box-shadow);
 }
-
-.tweet-card {
-	display: flex;
-	flex-direction: column; 
-	align-items: flex-start;
-	padding: 15px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	margin-bottom: 15px;
-	width: 400px;
-  }
-  
-  .profile-photo {
-	margin-right: 15px;
-  }
-  
-  .user-info {
-	flex-grow: 1;
-  }
-  
-  .user-avatar {
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-  }
-  
-  .user-name {
-	font-weight: bold;
-  }
-  
-  .user-username {
-	color: #888;
-  }
-  
-  .tweet-content {
-	margin-top: 10px;
-  }
-  
-  .tweet-actions {
-	margin-top: 10px;
-  }
-  
-  .action-button {
-	margin-right: 10px;
-	padding: 5px 10px;
-	background-color: #f0f0f0;
-	border-radius: 5px;
-	cursor: pointer;
-  }
-  
-  .action-button:hover {
-	background-color: #e0e0e0;
-  }
-  
 
 .header-post>div {
 	padding: 1em;
@@ -120,10 +67,14 @@ html {
 }
 
 .name-date-post {
+	/* Create an inline CSS grid */
 	display: inline-grid;
 	margin-left: 10px;
+	/* And a 10px gap between the elements */
 	grid-gap: 10px;
+	/* Grid row height */
 	grid-auto-rows: 15px;
+	/* Map the elements to the row */
 	grid-template-areas: "name" "date";
 }
 
@@ -145,6 +96,7 @@ html {
 }
 
 .date-post {
+	/* Map the div to it's right place */
 	grid-area: date;
 	text-align: left;
 	color: grey;
@@ -403,13 +355,9 @@ nav a {
 	border: 1px solid #ccc;
 	border-radius: 10px;
 	padding: 15px;
-	width: 100%;
+	width: 300px; /* Set the desired width */
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	transition: box-shadow 0.3s ease;
-}
-
-.tweet-card:hover {
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	margin: auto; /* Add this line to center-align the tweet card */
 }
 
 .tweet-header {
@@ -432,10 +380,6 @@ nav a {
 	font-weight: bold;
 }
 
-.user-username {
-	color: #888;
-}
-
 .tweet-content {
 	margin-top: 10px;
 	font-size: 14px;
@@ -455,4 +399,9 @@ nav a {
 
 .action-button:hover {
 	color: #1da1f2;
+}
+
+.my-img {
+	width: 95px;
+	height: auto;
 }

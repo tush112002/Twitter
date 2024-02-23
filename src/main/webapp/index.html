@@ -2,95 +2,204 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <!-- BS 5.3 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- Custom JS -->
-    <link rel="stylesheet" href="./styles.css">
-    <!-- Custom JS -->
-    <script src="./main.js"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Twitter</title>
+	<link href="style.css" rel="stylesheet">
+	<!-- Include Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Include jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- Include Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Include Your Main Script -->
+	<script src="main.js"></script>
 </head>
 
 <body>
-    <div class="container">
-        <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="feed-tab" data-bs-toggle="tab" data-bs-target="#feed-tab-pane"
-                    type="button" role="tab" aria-controls="feed-tab-pane" aria-selected="false" disabled>Feed</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
-                    type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false"
-                    disabled>Profile</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="my-tweets-tab" data-bs-toggle="tab" data-bs-target="#my-tweets-tab-pane"
-                    type="button" role="tab" aria-controls="my-tweets-tab-pane" aria-selected="false" disabled>My
-                    Tweets</button>
-            </li>
-            <li class="nav-item ms-auto" role="presentation">
-                <button class="nav-link active" id="sign-in-tab" data-bs-toggle="tab" data-bs-target="#sign-in-tab-pane"
-                    type="button" role="tab" aria-controls="sign-in-tab-pane" aria-selected="true">Sign In</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="sign-up-tab" data-bs-toggle="tab" data-bs-target="#sign-up-tab-pane"
-                    type="button" role="tab" aria-controls="sign-up-tab-pane" aria-selected="false">Sign Up</button>
-            </li>
-        </ul>
+	<div class="container">
+		<div id="alert" class="alert-dismissible d-flex justify-content-between">
+			<p id="alertMsg" hidden>
+				<strong id="alertTitle">Success!</strong>
+			</p>
+			<a id="alertClose" href="#" class="close" data-dismiss="alert" aria-label="close" hidden>&times;</a>
+		</div>
 
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade" id="feed-tab-pane" role="tabpanel" aria-labelledby="feed-tab" tabindex="0">FEED
-                HERE</div>
-            <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                PROFILE HERE
-            </div>
-            <div class="tab-pane fade" id="my-tweets-tab-pane" role="tabpanel" aria-labelledby="my-tweets-tab"
-                tabindex="0">
-                MY TWEETS HERE
-            </div>
-            <div class="tab-pane fade show active" id="sign-in-tab-pane" role="tabpanel" aria-labelledby="sign-in-tab"
-                tabindex="0">
-               
-                    <div class="mb-3">
-                        <label for="signInEmail" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="signInEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="signInPassword" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="signInPassword" placeholder="Password" required>
-                    </div>
-                    <button type="button" class="btn btn-primary" id="signInSubmit" onclick="signIn()">Submit</button>
-               
-            </div>
-            <div class="tab-pane fade" id="sign-up-tab-pane" role="tabpanel" aria-labelledby="sign-up-tab" tabindex="0">
-               
-                    <div class="mb-3">
-                        <label for="signUpName" class="form-label" >User Name</label>
-                        <input type="text" class="form-control" id="signUpName" placeholder="Enter username" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="signUpEmail" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="signUpEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="signUpPassword" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="signUpPassword" placeholder="Password" required>
-                    </div>
-                    <button type="button" class="btn btn-primary" id="signUpSubmit" onclick="signUp()">Submit</button>
-               
-            </div>
-        </div>
-        </div>
-    <!-- BS JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-       
+		<ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="feed-tab" data-bs-toggle="tab" data-bs-target="#feed-tab-pane"
+					type="button" role="tab" aria-controls="feed-tab-pane" aria-selected="false" disabled>Feed</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
+					type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false"
+					disabled>Profile</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="my-tweets-tab" data-bs-toggle="tab" data-bs-target="#my-tweets-tab-pane"
+					type="button" role="tab" aria-controls="my-tweets-tab-pane" aria-selected="false" disabled>My
+					Tweets</button>
+			</li>
+			<li class="nav-item ms-auto" role="presentation">
+				<button class="nav-link active" id="sign-in-tab" data-bs-toggle="tab" data-bs-target="#sign-in-tab-pane"
+					type="button" role="tab" aria-controls="sign-in-tab-pane" aria-selected="true">Sign In</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="sign-up-tab" data-bs-toggle="tab" data-bs-target="#sign-up-tab-pane"
+					type="button" role="tab" aria-controls="sign-up-tab-pane" aria-selected="false">Sign
+					Up</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="logout-btn" id="logout-tab" type="button" role="tab" aria-controls="logout-tab-pane"
+					aria-selected="false" hidden onclick="logout()">Logout</button>
+			</li>
+		</ul>
+
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade" id="feed-tab-pane" role="tabpanel" aria-labelledby="feed-tab" tabindex="0">
+				<div class="wrapper">
+					<div class="wrapper2">
+						<div class="main-form">
+							<form class="form-wrapper" action="/post">
+								<!--action="/post">-->
+								<input class="form-control-name" type="text" name="name" id="name"
+									placeholder="Your name..." maxlength="25" pattern="[\S]{4,25}" required><br>
+								<textarea id="body" class="form-control" placeholder="What's in your mind?"
+									maxlength="280" minlength="4" name="post" required></textarea>
+								<i class="material-icons right">send</i> <input class="tweet-button" type="button"
+									value="Post" onclick="addTweet()">
+							</form>
+						</div>
+						<div class="tweets">
+
+							<ul id="namesList" class="list-group"></ul>
+
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+			<div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+				PROFILE HERE</div>
+			<div class="tab-pane fade" id="my-tweets-tab-pane" role="tabpanel" aria-labelledby="my-tweets-tab"
+				tabindex="0">MY TWEETS HERE</div>
+			<div class="tab-pane fade show active" id="sign-in-tab-pane" role="tabpanel" aria-labelledby="sign-in-tab"
+				tabindex="0">
+
+				<div class="mb-3">
+					<label for="signInEmail" class="form-label">Email address</label> <input type="email"
+						class="form-control" id="signInEmail" aria-describedby="emailHelp" placeholder="Enter email"
+						required>
+				</div>
+				<div class="mb-3">
+					<label for="signInPassword" class="form-label">Password</label> <input type="password"
+						class="form-control" id="signInPassword" placeholder="Password" required>
+				</div>
+				<button type="button" class="btn btn-primary" id="signInSubmit" onclick="signIn()">Submit</button>
+
+			</div>
+			<div class="tab-pane fade" id="sign-up-tab-pane" role="tabpanel" aria-labelledby="sign-up-tab" tabindex="0">
+
+				<div class="mb-3">
+					<label for="signUpName" class="form-label">User Name</label> <input type="text" class="form-control"
+						id="signUpName" placeholder="Enter username" required>
+				</div>
+				<div class="mb-3">
+					<label for="signUpEmail" class="form-label">Email address</label> <input type="email"
+						class="form-control" id="signUpEmail" aria-describedby="emailHelp" placeholder="Enter email"
+						required>
+				</div>
+				<div class="mb-3">
+					<label for="signUpPassword" class="form-label">Password</label> <input type="password"
+						class="form-control" id="signUpPassword" placeholder="Password" required>
+				</div>
+				<button type="button" class="btn btn-primary" id="signUpSubmit" onclick="signUp()">Submit</button>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Sign In Success Modal -->
+	<div class="modal fade" id="signInSuccessModal" tabindex="-1" aria-labelledby="signInSuccessModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="signInSuccessModalLabel">Sign In
+						Success</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">You have successfully signed in!</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Sign In Failure Modal -->
+	<div class="modal fade" id="signInFailedModal" tabindex="-1" aria-labelledby="signInFailedModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="signInFailedModalLabel">Sign In
+						Failed</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">Your email or password is incorrect.
+					Please try again.</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Sign-up Success Modal -->
+	<div class="modal fade" id="signupSuccessModal" tabindex="-1" aria-labelledby="signupSuccessModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="signupSuccessModalLabel">Sign Up
+						Success</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">Congratulations! Your account has been
+					created successfully.</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Sign-up Fail Modal -->
+	<div class="modal fade" id="signupFailModal" tabindex="-1" aria-labelledby="signupFailModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="signupFailModalLabel">Sign Up
+						Failed</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">Sorry, we couldn't create your
+					account. Please try again later.</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- BS JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
+
 
 </body>
 
