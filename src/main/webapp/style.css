@@ -14,18 +14,6 @@ html {
 	font-family: var(--web-font);
 }
 
-
-.tweet-card {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 15px;
-    width: 300px; /* Set the desired width */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: auto; /* Add this line to center-align the tweet card */
-    margin-bottom: 20px; /* Add space between tweet cards */
-}
-
 .wrapper {
 	margin: 20px;
 }
@@ -375,7 +363,6 @@ nav a {
     margin: 10px;
 }
 
-
 .tweet-header {
 	display: flex;
 	align-items: center;
@@ -426,3 +413,63 @@ nav a {
 	height: auto;
 }
 
+
+.my-tweet-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+	align-self: center;
+    padding: 15px;
+    width: 400px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+}
+
+.my-user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    flex-shrink: 0; /* Prevent avatar from shrinking */
+}
+
+.my-user-avatar img {
+    width: 100%;
+    height: auto;
+}
+
+.my-tweet-body {
+    flex-grow: 1; /* Expand to fill remaining space */
+    padding: 15px;
+}
+
+
+.my-user-name {
+	
+    font-weight: bold;
+    margin: 0; /* Remove default margin */
+}
+
+.my-tweet-content {
+    margin-top: 10px;
+}
+
+.my-tweet-likes {
+    font-size: 14px;
+}
+
+.my-delete-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    outline: none;
+}
+
+.my-delete-button:hover {
+    background-color: #c82333;
+}
