@@ -27,7 +27,7 @@
 
 		<ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="feed-tab" data-bs-toggle="tab" data-bs-target="#feed-tab-pane"
+				<button onclick="addTweet()" class="nav-link" id="feed-tab" data-bs-toggle="tab" data-bs-target="#feed-tab-pane"
 					type="button" role="tab" aria-controls="feed-tab-pane" aria-selected="false" disabled>Feed</button>
 			</li>
 			<li class="nav-item" role="presentation">
@@ -36,7 +36,7 @@
 					disabled>Profile</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="my-tweets-tab" data-bs-toggle="tab" data-bs-target="#my-tweets-tab-pane"
+				<button onclick="viewMyTweets()" class="nav-link" id="my-tweets-tab" data-bs-toggle="tab" data-bs-target="#my-tweets-tab-pane"
 					type="button" role="tab" aria-controls="my-tweets-tab-pane" aria-selected="false" disabled>My
 					Tweets</button>
 			</li>
@@ -64,7 +64,7 @@
 								<!--action="/post">-->
 								<input class="form-control-name" type="text" name="name" id="name"
 									placeholder="Your name..." maxlength="25" pattern="[\S]{4,25}" required><br>
-								<textarea id="body" class="form-control" placeholder="What's in your mind?"
+								<textarea id= "tweetBody" class="form-control" placeholder="What's in your mind?"
 									maxlength="280" minlength="4" name="post" required></textarea>
 								<i class="material-icons right">send</i> <input class="tweet-button" type="button"
 									value="Post" onclick="addTweet()">
@@ -84,6 +84,11 @@
 				PROFILE HERE</div>
 			<div class="tab-pane fade" id="my-tweets-tab-pane" role="tabpanel" aria-labelledby="my-tweets-tab"
 				tabindex="0">MY TWEETS HERE</div>
+				<div class = "tweets">
+				<ul id="mytweets" class="list-group">
+
+				</ul>
+				</div>
 			<div class="tab-pane fade show active" id="sign-in-tab-pane" role="tabpanel" aria-labelledby="sign-in-tab"
 				tabindex="0">
 
