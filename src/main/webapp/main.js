@@ -237,31 +237,28 @@ function viewMyTweets() {
 }
 
 function mapMyTweetsToCard(tweets) {
-	var listString = "";
+    var listString = "";
 
-
-	for (let i = 0; i < tweets.length; i++) {
-		listString += `<div class="tweet-card" style="max-width: 540px;">
-                        <div class="">
-                            <div class="tweet-header">
-                                <img src="${tweets[i].user.userAvatar}" class="user-avatar" alt="...">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="user-name">${tweets[i].user.userName}</h5>
-                                    <p class="tweet-content">${tweets[i].tweetBody}.</p>
-                                    <p class="card-text">
-                                        <small class="action-button">Likes: ${tweets[i].tweetLikes}</small>
-                                    </p>
+    for (let i = 0; i < tweets.length; i++) {
+        listString += `<div class="my-tweet-card" style="max-width: 540px;">
+                            <div class="">
+                                <div class="my-tweet-header">
+                                    <img src="${tweets[i].user.userAvatar}" class="my-user-avatar" alt="...">
                                 </div>
-                                <button type="button" class="btn btn-danger"onClick="deleteTweet(${tweets[i].tweetId})>Delete</button>
+                                <div class="my-tweet-body">
+                                    <div class="my-tweet-user-info">
+                                        <h5 class="my-user-name">${tweets[i].user.userName}</h5>
+                                        <p class="my-tweet-content">${tweets[i].tweetBody}.</p>
+                                        <p class="my-tweet-likes">Likes: ${tweets[i].tweetLikes}</p>
+                                    </div>
+                                    <button type="button" class="my-delete-button" onClick="deleteTweet(${tweets[i].tweetId})"<i class="bi bi-trash"></i>Delete</button>
+                                </div>
                             </div>
-                        </div>
-                    </div>`;
-	}
-	document.getElementById('mytweets').innerHTML = listString;
-
+                        </div>`;
+    }
+    document.getElementById('mytweets').innerHTML = listString;
 }
+
 
 function likeTweet(tweetId) {
 
