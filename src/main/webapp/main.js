@@ -1,293 +1,236 @@
-var tweets = [];
-var tweetid;
-var userId = null;
+var userId;
+var cartId;
+var quantity = 1;
+var products = [];
+
+
+
+function getProducts() {
+  fetch("http://localhost:8080/postbook/webapi/amazon/products/viewProducts", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      products = data;
+      mapProductsToCard(data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+function mapProductsToCard(products) {
+  var cardString = "";
+
+  for (let i = 0; i < products.length; i++) {
+    cardString += `<div class="product-card">
+          <div class="product-header">
+              <img
+                  src="${products[i].productImage}"
+                  alt="Product Image"
+                  class="product-image"
+              />
+              <div class="product-info">
+                  <div class="product-name">${products[i].productName}</div>
+                  <div class="product-price">$${products[i].productPrice}</div>
+              </div>
+          </div>
+
+          <div class="product-description">
+              ${products[i].productDescription}
+          </div>
+
+          <div class="product-actions">
+              <button class="btn btn-primary" onclick="addToCart(${products[i].productId})">Add to Cart</button>
+          </div>
+      </div>`;
+  }
+
+  document.getElementById("productsList").innerHTML = cardString;
+}
+
+
+
 
 function signUp() {
-	const userData = {
-		userName: document.getElementById("signUpName").value,
-		userEmail: document.getElementById("signUpEmail").value,
-		userPassword: document.getElementById("signUpPassword").value,
-	};
+  const userData = {
+    userName: document.getElementById("signUpName").value,
+    userEmail: document.getElementById("signUpEmail").value,
+    userPassword: document.getElementById("signUpPassword").value,
+  };
 
-	document.getElementById("signUpEmail").value = "";
-	document.getElementById("signUpName").value = "";
-	document.getElementById("signUpPassword").value = "";
+  document.getElementById("signUpEmail").value = "";
+  document.getElementById("signUpName").value = "";
+  document.getElementById("signUpPassword").value = "";
 
-	fetch("http://localhost:8080/postbook/webapi/twitter/users/add", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(userData),
-	})
-		.then((resp) => {
-			if (resp.status === 200) {
-				// Sign-up success
-				$('#signupSuccessModal').modal('show');
-			} else {
-				// Sign-up failed
-				$('#signupFailModal').modal('show');
-			}
-		})
-		.catch((error) => {
-			console.error("Error:", error);
-		});
-}
-
-function signIn() {
-	const userEmailInput = document.getElementById("signInEmail");
-	const userPasswordInput = document.getElementById("signInPassword");
-	const userData = {
-		userEmail: userEmailInput.value,
-		userPassword: userPasswordInput.value,
-	};
-
-	userEmailInput.value = "";
-	userPasswordInput.value = "";
-
-	fetch("http://localhost:8080/postbook/webapi/twitter/users/login", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(userData),
-	})
-		.then((resp) => {
-			if (resp.status === 200) {
-				// Successful login
-				console.log("success");
-				$('#signInSuccessModal').modal('show'); // Show success modal
-				document.getElementById("feed-tab").disabled = false;
-				document.getElementById("profile-tab").disabled = false;
-				document.getElementById("my-tweets-tab").disabled = false;
-				document.getElementById("sign-in-tab").hidden = true;
-				document.getElementById("sign-up-tab").hidden = true;
-				document.getElementById("logout-tab").hidden = false;
-				getTweets();
-				const feedTabButton = document.getElementById("feed-tab");
-				feedTabButton.click();
-				return resp.json();
-			} else if (resp.status === 204) {
-				// No content
-				throw new Error("Wrong email or password");
-			}
-		})
-		.then((data) => {
-			userId = data.userId;
-			console.log(userId);
-		})
-		.catch((error) => {
-			console.error("Error:", error);
-			$('#signInFailureModal').modal('show'); // Show failure modal
-		});
+  fetch("http://localhost:8080/postbook/webapi/amazon/users/add", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  })
+    .then((resp) => {
+      if (resp.status === 200) {
+        $('#signupSuccessModal').modal('show');
+      } else {
+        $('#signupFailModal').modal('show');
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 }
 
 
 function signIn() {
-	const userEmailInput = document.getElementById("signInEmail");
-	const userPasswordInput = document.getElementById("signInPassword");
-	const userData = {
-		userEmail: userEmailInput.value,
-		userPassword: userPasswordInput.value,
-	};
-	document.getElementById("signInEmail").value = "";
-	userPasswordInput.value = "";
+  const userEmailInput = document.getElementById("signInEmail");
+  const userPasswordInput = document.getElementById("signInPassword");
+  const userData = {
+    userEmail: userEmailInput.value,
+    userPassword: userPasswordInput.value,
+  };
 
-	fetch("http://localhost:8080/postbook/webapi/twitter/users/login", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(userData),
-	})
-		.then((resp) => {
-			if (resp.status === 200) {
-				// Successful login
-				$('#signInSuccessModal').modal('show');
-				document.getElementById("feed-tab").disabled = false;
-				document.getElementById("profile-tab").disabled = false;
-				document.getElementById("my-tweets-tab").disabled = false;
-				document.getElementById("sign-in-tab").hidden = true;
-				document.getElementById("sign-up-tab").hidden = true;
-				document.getElementById("logout-tab").hidden = false;
-				getTweets();
-				const feedTabButton = document.getElementById("feed-tab");
-				feedTabButton.click();
-				return resp.json();
-			} else if (resp.status === 204) {
-				// No content
-				throw new Error("Wrong email or password");
-			}
-		})
-		.then((data) => {
-			userId = data.userId;
-			console.log(userId);
-		})
-		.catch((error) => {
-			console.error("Error:", error);
-			$('#signInFailedModal').modal('show');
-		});
+  userEmailInput.value = "";
+  userPasswordInput.value = "";
+
+  fetch("http://localhost:8080/postbook/webapi/amazon/users/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  })
+    .then((resp) => {
+      if (resp.status === 200) {
+        console.log("success");
+        $('#signInSuccessModal').modal('show');
+        document.getElementById("feed-tab").disabled = false;
+        document.getElementById("profile-tab").disabled = false;
+        document.getElementById("my-tweets-tab").disabled = false;
+        document.getElementById("sign-in-tab").hidden = true;
+        document.getElementById("sign-up-tab").hidden = true;
+        document.getElementById("logout-tab").hidden = false;
+        getProducts();
+        const feedTabButton = document.getElementById("feed-tab");
+        feedTabButton.click();
+        return resp.json();
+      } else if (resp.status === 204) {
+        // No content
+        throw new Error("Wrong email or password");
+      }
+    })
+    .then((data) => {
+      userId = data.userId; 
+      console.log(userId);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      $('#signInFailureModal').modal('show');
+    });
 }
 
-function addTweet() {
+function addToCart(product_id) {
+  console.log(product_id);
+  const cartData = {
+    productId: product_id,
+    users: {
+      userId: userId
+    },
+    quantity,
+  };
 
-	// const userName=document.getElementById("name").value;
-	const tweetBody = document.getElementById("tweetBody").value;
-	console.log(tweetBody);
-	const tweetData = {
-		// tweetBody: document.getElementById("body").value,
-		tweetBody: tweetBody,
-		user: {
-			userId: userId
-		},
-	};
-	fetch("http://localhost:8080/postbook/webapi/twitter/tweets/add", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(tweetData),
-	})
-		.then((resp) => {
-			getTweets();
-			resp.json();
-		})
-		.then(data => {
-			console.log(data)
-			tweetid = data.tweetId;
-			alert("Tweet ADD.")
-		});
+  fetch("http://localhost:8080/postbook/webapi/amazon/cart/addtocart", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(cartData),
+  })
+    .then((resp) => {
+      if (resp.ok) {
+        $('#addToCartSuccessModal').modal('show');
+      } else {
+        $('#addToCartFailModal').modal('show');
+        console.error("Failed to add product to cart:", resp.statusText);
+      }
+    })
+    .catch((error) => {
+      console.error("Error adding product to cart:", error);
+      $('#addToCartFailModal').modal('show');
+    });
 }
 
 
-function getTweets() {
-	fetch("http://localhost:8080/postbook/webapi/twitter/tweets/getAllTweet", {
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-		}
-	})
-		.then((res) => res.json())
-		.then((data) => {
-			Object.assign(tweets, data);
-			console.log("Data :", data);
-			mapTweetsToCard(data);
-		});
+function getCartItems() {
+  fetch(`http://localhost:8080/postbook/webapi/amazon/cart/viewcart/${userId}`).then(resp => resp.json())
+    .then(data => {
+      displayCartItems(data);
+      console.log(data);
+    })
+    .catch(err => console.log(err))
 }
 
-function mapTweetsToCard(tweets) {
-	var listString = "";
+function displayCartItems(cartItems) {
+  var cartString = "";
 
-	for (let i = 0; i < tweets.length; i++) {
-		listString += `
-            <div class="tweet-card">
-                <div class="tweet-header">
-                    <img src="${tweets[i].user.userAvatar}" alt="User Avatar" class="user-avatar">
-                    <div class="user-info">
-                        <div class="user-name">${tweets[i].user.userName}</div>
-                        <div class="user-username">@${tweets[i].user.userName}</div>
-                    </div>
-                </div>
+  for (let i = 0; i < cartItems.length; i++) {
+    cartString += `<div class="cart-item">
+        <div class="cart-product">
+          <img src="${cartItems[i].productImage}" alt="Product Image" class="cart-product-image" />
+          <div class="cart-product-info">
+            <div class="cart-product-name">${cartItems[i].productName}</div>
+            <div class="cart-product-price">$${cartItems[i].productPrice}</div>
+            <div class="cart-product-quantity">Quantity: ${cartItems[i].quantity}</div>
+          </div>
+        </div>
+        <div class="cart-actions">
+          <button class="btn btn-danger" onclick="removeFromCart(${cartItems[i].cartItemId})">Remove</button>
+        </div>
+      </div>`;
+  }
 
-                <div class="tweet-content">
-                    ${tweets[i].tweetBody}
-                </div>
-
-                <div class="tweet-actions">
-                    <div class="action-button">
-                        <button class="text-body-secondary" onclick="likeTweet(${tweets[i].tweetId})">Likes: ${tweets[i].tweetLikes}</button>
-                    </div>
-                    <div class="action-button">Retweet</div>
-                </div>
-            </div>`;
-	}
-
-	document.getElementById("namesList").innerHTML = listString;
+  document.getElementById("cartItems").innerHTML = cartString;
 }
 
+function removeFromCart(cartItemId) {
+  fetch(`http://localhost:8080/postbook/webapi/amazon/cart/removeCartItem/${cartItemId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  })
+    .then((res) => {
+      if (res.ok) {
+        // Refresh cart items after removal
+        getCartItems();
+        // Optionally, show a success message
+        console.log("Product removed from cart successfully");
+      } else {
+        // Optionally, show an error message
+        console.error("Failed to remove product from cart:", res.statusText);
+      }
+    })
+    .catch((error) => {
+      console.error("Error removing product from cart:", error);
+    });
+}
 
 
 function logout() {
-	document.getElementById("feed-tab").disabled = true;
-	document.getElementById("profile-tab").disabled = true;
-	document.getElementById("my-tweets-tab").disabled = true;
-	document.getElementById("sign-in-tab").hidden = false;
-	document.getElementById("sign-up-tab").hidden = false;
-	document.getElementById("logout-tab").hidden = true;
+  userId = undefined;
+  cartId = undefined;
 
-	const signInTabButton = document.getElementById("sign-in-tab");
-	signInTabButton.click();
+  document.getElementById("feed-tab").disabled = true;
+  document.getElementById("profile-tab").disabled = true;
+  document.getElementById("my-tweets-tab").disabled = true;
+  document.getElementById("sign-in-tab").hidden = false;
+  document.getElementById("sign-up-tab").hidden = false;
+  document.getElementById("logout-tab").hidden = true;
 
-}
-
-function viewMyTweets() {
-
-	fetch(`http://localhost:8080/postbook/webapi/twitter/tweets/myTweet/${userId}`, {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	})
-		.then(resp => resp.json())
-		.then(data => {
-			console.log(data);
-			mapMyTweetsToCard(data)
-		})
-
-}
-
-function mapMyTweetsToCard(tweets) {
-    var listString = "";
-
-    for (let i = 0; i < tweets.length; i++) {
-        listString += `<div class="my-tweet-card" style="max-width: 540px;">
-                            <div class="">
-                                <div class="my-tweet-header">
-                                    <img src="${tweets[i].user.userAvatar}" class="my-user-avatar" alt="...">
-                                </div>
-                                <div class="my-tweet-body">
-                                    <div class="my-tweet-user-info">
-                                        <h5 class="my-user-name">${tweets[i].user.userName}</h5>
-                                        <p class="my-tweet-content">${tweets[i].tweetBody}.</p>
-                                        <p class="my-tweet-likes">Likes: ${tweets[i].tweetLikes}</p>
-                                    </div>
-                                    <button type="button" class="my-delete-button" onClick="deleteTweet(${tweets[i].tweetId})"<i class="bi bi-trash"></i>Delete</button>
-                                </div>
-                            </div>
-                        </div>`;
-    }
-    document.getElementById('mytweets').innerHTML = listString;
-}
-
-
-function likeTweet(tweetId) {
-
-	fetch(`http://localhost:8080/postbook/webapi/twitter/tweets/likes/${tweetId}`, {
-		method: 'PUT',
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	})
-		.then((resp) => {
-			getTweets();
-			resp.json()
-		})
-		.then((data) => console.log(data))
-}
-
-function deleteTweet(tweetId) {
-
-	fetch(`http://localhost:8080/postbook/webapi/twitter/tweets/deleteTweet/${tweetId}`, {
-		method: 'DELETE',
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	})
-	.then((resp)=>{
-		myTweets();
-		resp.json()
-	})
-	.then((data) => {
-		console.log(data)
-	})
+  document.getElementById("productsList").innerHTML = "";
+  document.getElementById("logout-tab").addEventListener("click", logout);
 }
