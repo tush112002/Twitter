@@ -1,19 +1,12 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Twitter</title>
-	<link href="style.css" rel="stylesheet">
-	<!-- Include Bootstrap CSS -->
+	<title>Amazon</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-	<!-- Include jQuery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<!-- Include Bootstrap JS -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- Include Your Main Script -->
-	<script src="main.js"></script>
+	<link rel="stylesheet" href="style.css"> <!-- Add your CSS file here -->
 </head>
 
 <body>
@@ -27,31 +20,39 @@
 
 		<ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
 			<li class="nav-item" role="presentation">
-				<button onclick="addTweet()" class="nav-link" id="feed-tab" data-bs-toggle="tab" data-bs-target="#feed-tab-pane"
-					type="button" role="tab" aria-controls="feed-tab-pane" aria-selected="false" disabled>Feed</button>
+				<button onclick="getProducts()" class="nav-link" id="feed-tab" data-bs-toggle="tab"
+					data-bs-target="#feed-tab-pane" type="button" role="tab" aria-controls="feed-tab-pane"
+					aria-selected="false" disabled>Products
+				</button>
 			</li>
 			<li class="nav-item" role="presentation">
 				<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
-					type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false"
-					disabled>Profile</button>
+					type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false" disabled>
+					My Profile
+				</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button onclick="viewMyTweets()" class="nav-link" id="my-tweets-tab" data-bs-toggle="tab" data-bs-target="#my-tweets-tab-pane"
-					type="button" role="tab" aria-controls="my-tweets-tab-pane" aria-selected="false" disabled>My
-					Tweets</button>
+				<button onclick="getCartItems()" class="nav-link" id="my-tweets-tab" data-bs-toggle="tab" data-bs-target="#my-tweets-tab-pane"
+					type="button" role="tab" aria-controls="my-tweets-tab-pane" aria-selected="false" disabled>
+					My Cart
+				</button>
 			</li>
 			<li class="nav-item ms-auto" role="presentation">
 				<button class="nav-link active" id="sign-in-tab" data-bs-toggle="tab" data-bs-target="#sign-in-tab-pane"
-					type="button" role="tab" aria-controls="sign-in-tab-pane" aria-selected="true">Sign In</button>
+					type="button" role="tab" aria-controls="sign-in-tab-pane" aria-selected="true">
+					Sign In
+				</button>
 			</li>
 			<li class="nav-item" role="presentation">
 				<button class="nav-link" id="sign-up-tab" data-bs-toggle="tab" data-bs-target="#sign-up-tab-pane"
-					type="button" role="tab" aria-controls="sign-up-tab-pane" aria-selected="false">Sign
-					Up</button>
+					type="button" role="tab" aria-controls="sign-up-tab-pane" aria-selected="false">
+					Sign Up
+				</button>
 			</li>
 			<li class="nav-item" role="presentation">
 				<button class="logout-btn" id="logout-tab" type="button" role="tab" aria-controls="logout-tab-pane"
-					aria-selected="false" hidden onclick="logout()">Logout</button>
+					aria-selected="false" hidden onclick="logout()">Logout
+				</button>
 			</li>
 		</ul>
 
@@ -59,36 +60,30 @@
 			<div class="tab-pane fade" id="feed-tab-pane" role="tabpanel" aria-labelledby="feed-tab" tabindex="0">
 				<div class="wrapper">
 					<div class="wrapper2">
-						<div class="main-form">
-							<form class="form-wrapper" action="/post">
-								<!--action="/post">-->
-								<input class="form-control-name" type="text" name="name" id="name"
-									placeholder="Your name..." maxlength="25" pattern="[\S]{4,25}" required><br>
-								<textarea id= "tweetBody" class="form-control" placeholder="What's in your mind?"
-									maxlength="280" minlength="4" name="post" required></textarea>
-								<i class="material-icons right">send</i> <input class="tweet-button" type="button"
-									value="Post" onclick="addTweet()">
-							</form>
-						</div>
-						<div class="tweets">
+						<div class="products">
 
-							<ul id="namesList" class="list-group"></ul>
+							<ul id="productsList" class="list-group"></ul>
 
 						</div>
 					</div>
 				</div>
-
-
 			</div>
 			<div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-				PROFILE HERE</div>
-			<div class="tab-pane fade" id="my-tweets-tab-pane" role="tabpanel" aria-labelledby="my-tweets-tab"
-				tabindex="0">MY TWEETS HERE</div>
-				<div class = "tweets">
-				<ul id="mytweets" class="list-group">
-
-				</ul>
+				PROFILE HERE
+			</div>
+			<div class="tab-pane fade" id="my-tweets-tab-pane" role="tabpanel" aria-labelledby="my-tweets-tab" tabindex="0">
+				<div id="cartItems" class="cart-items">My Cart
+					<div class="wrapper">
+						<div class="wrapper2">
+							<div class="products">
+	
+								<ul id="cartItems" class="list-group"></ul>
+	
+							</div>
+						</div>
+					</div>
 				</div>
+			</div>
 			<div class="tab-pane fade show active" id="sign-in-tab-pane" role="tabpanel" aria-labelledby="sign-in-tab"
 				tabindex="0">
 
@@ -107,20 +102,34 @@
 			<div class="tab-pane fade" id="sign-up-tab-pane" role="tabpanel" aria-labelledby="sign-up-tab" tabindex="0">
 
 				<div class="mb-3">
-					<label for="signUpName" class="form-label">User Name</label> <input type="text" class="form-control"
-						id="signUpName" placeholder="Enter username" required>
+					<label for="signUpName" class="form-label">User Name</label>
+					<input type="text" class="form-control" id="signUpName" placeholder="Enter username" required>
 				</div>
 				<div class="mb-3">
-					<label for="signUpEmail" class="form-label">Email address</label> <input type="email"
-						class="form-control" id="signUpEmail" aria-describedby="emailHelp" placeholder="Enter email"
+					<label for="signUpEmail" class="form-label">Email address</label>
+					<input type="email" class="form-control" id="signUpEmail" aria-describedby="emailHelp"
+						placeholder="Enter email" required>
+				</div>
+				<div class="mb-3">
+					<label for="signUpPassword" class="form-label">Password</label>
+					<input type="password" class="form-control" id="signUpPassword" placeholder="Password" required>
+				</div>
+				<div class="mb-3">
+					<label for="signUpConfirmPassword" class="form-label">Confirm Password</label>
+					<input type="password" class="form-control" id="signUpConfirmPassword"
+						placeholder="Confirm Password" required>
+				</div>
+				<div class="mb-3">
+					<label for="signUpAddress" class="form-label">Address</label>
+					<input type="text" class="form-control" id="signUpAddress" placeholder="Enter address" required>
+				</div>
+				<div class="mb-3">
+					<label for="signUpMobile" class="form-label">Mobile</label>
+					<input type="text" class="form-control" id="signUpMobile" placeholder="Enter mobile number"
 						required>
 				</div>
-				<div class="mb-3">
-					<label for="signUpPassword" class="form-label">Password</label> <input type="password"
-						class="form-control" id="signUpPassword" placeholder="Password" required>
-				</div>
-				<button type="button" class="btn btn-primary" id="signUpSubmit" onclick="signUp()">Submit</button>
 
+				<button type="button" class="btn btn-primary" id="signUpSubmit" onclick="signUp()">Submit</button>
 			</div>
 		</div>
 	</div>
@@ -154,7 +163,8 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">Your email or password is incorrect.
-					Please try again.</div>
+					Please try again.
+				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 				</div>
@@ -172,7 +182,8 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">Congratulations! Your account has been
-					created successfully.</div>
+					created successfully.
+				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
 				</div>
@@ -191,7 +202,42 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">Sorry, we couldn't create your
-					account. Please try again later.</div>
+					account. Please try again later.
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Add to Cart Success Modal -->
+	<div class="modal fade" id="addToCartSuccessModal" tabindex="-1" aria-labelledby="addToCartSuccessModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="addToCartSuccessModalLabel">Product Added to Cart</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">The product has been added to your cart successfully.</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Add to Cart Fail Modal -->
+	<div class="modal fade" id="addToCartFailModal" tabindex="-1" aria-labelledby="addToCartFailModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="addToCartFailModalLabel">Failed to Add Product to Cart</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">Sorry, we couldn't add the product to your cart. Please try again later.</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
 				</div>
@@ -200,12 +246,12 @@
 	</div>
 
 
-	<!-- BS JS -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-		crossorigin="anonymous"></script>
-
-
+	<!-- Include jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- Include Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Include Your Main Script -->
+	<script src="main.js"></script>
 </body>
 
 </html>
